@@ -1,6 +1,6 @@
 # Nähdään elokuvissa -sivusto
 
-Kurssin tietokannat ja web-ohjelmointi kurssityö
+**Kurssin tietokannat ja web-ohjelmointi kurssityö**
 
 Sovelluksessa käyttäjät pystyvät merkitsemään, milloin ja missä ovat katsoneet elokuvia muiden käyttäjien kanssa. Katsomiskertaan kirjataan aika ja paikka (esim. "Tennispalatsi 3"). Katsomiskertaan merkitään myös keiden käyttäjien kanssa elokuva on nähty. Tämä on pakollinen tieto, eli palveluun kirjataan vain yhdessä muiden käyttäjien kanssa katsottuja elokuvia. Duplikaattitapahtumaa ei voi lisätä, eli tapahtuman täytyy erota muista ainakin elokuvan, ajan, tai paikan suhteen.
 
@@ -16,11 +16,11 @@ Katsomiskertoja voi selata ja hakea sijainnin, osallistujien, elokuvan, tägien,
 
 Käyttäjäsivulla näkee käyttäjästä tilastoja ja näyttökerrat joihin on merkittynä ja kommentit.
 
-Muista:
+**Muista:**
 
 Sovelluksen käyttöliittymän ja README.md-tiedoston kieli voi olla suomi, ruotsi tai englanti. Sovelluksen teknisen toteutuksen (koodi, tietokanta, commit-viestit) kielen tulee olla englanti.
 
-Ohjeet sovelluksen kokeiluun omalla koneella:
+**Ohjeet sovelluksen kokeiluun omalla koneella:**
 <br>
 
 Sovellus käyttää tietokantana SQLite3:ea. Se tulee olla asennettuna, tällä tai vastaavalla komennolla:
