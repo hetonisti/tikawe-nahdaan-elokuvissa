@@ -15,10 +15,12 @@ Koska katsomiskerrat ovat yhteisiä, niin niitä ei voi poistaa tai muokata mite
 Katsomiskertoja voi selata ja hakea sijainnin, osallistujien, elokuvan, tägien, ja/tai kommenttien sisällön perusteella.
 
 Käyttäjäsivulla näkee käyttäjästä tilastoja ja näyttökerrat joihin on merkittynä ja kommentit.
+<br><br>
 
 **Muista:**
 
 Sovelluksen käyttöliittymän ja README.md-tiedoston kieli voi olla suomi, ruotsi tai englanti. Sovelluksen teknisen toteutuksen (koodi, tietokanta, commit-viestit) kielen tulee olla englanti.
+<br><br>
 
 **Ohjeet sovelluksen kokeiluun omalla koneella:**
 <br>
