@@ -26,37 +26,37 @@ Sovellus käyttää tietokantana SQLite3:ea. Se tulee olla asennettuna, tällä 
 ```
 sudo dnf install sqlite3
 ```
-
+\\\\
 
 Kun SQLite3 on asennettuna, luodaan tietokanta seuraavalla komennolla:
 ```
 sqlite3 database.db < create-db.sql
 ```
-
+\\\\
 
 Ohjelman ajamiseen suositellaan virtuaaliympäristöä, joka luodaan seuraavasti:
 ```
 python3 -m venv venv
 ```
-
+\\\\
 
 Virtuaaliympäristö käynnistetään seuraavasti:
 ```
 source venv/bin/activate
 ```
-
+\\\\
 
 Seuraavalla komennolla poistutaan virtuaaliympäristöstä:
 ```
 deactivate
 ```
-
+\\\\
 
 Sovellus käyttää Flaskia, joka asennetaan virtuaaliympäristössä seuraavasti:
 ```
 pip install flask
 ```
-
+\\\\
 
 Sovellus käynnistetään komennolla
 ```
