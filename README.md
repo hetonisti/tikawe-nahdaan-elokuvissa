@@ -22,6 +22,7 @@ Sovelluksen käyttöliittymän ja README.md-tiedoston kieli voi olla suomi, ruot
 
 Ohjeet sovelluksen kokeiluun omalla koneella:
 <br>
+
 Sovellus käyttää tietokantana SQLite3:ea. Se tulee olla asennettuna, tällä tai vastaavalla komennolla:
 ```
 sudo dnf install sqlite3
