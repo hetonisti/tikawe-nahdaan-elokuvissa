@@ -21,42 +21,42 @@ Muista:
 Sovelluksen käyttöliittymän ja README.md-tiedoston kieli voi olla suomi, ruotsi tai englanti. Sovelluksen teknisen toteutuksen (koodi, tietokanta, commit-viestit) kielen tulee olla englanti.
 
 Ohjeet sovelluksen kokeiluun omalla koneella:
-<br><br>
+<br>
 Sovellus käyttää tietokantana SQLite3:ea. Se tulee olla asennettuna, tällä tai vastaavalla komennolla:
 ```
 sudo dnf install sqlite3
 ```
-<br><br>
+<br>
 
 Kun SQLite3 on asennettuna, luodaan tietokanta seuraavalla komennolla:
 ```
 sqlite3 database.db < create-db.sql
 ```
-<br><br>
+<br>
 
 Ohjelman ajamiseen suositellaan virtuaaliympäristöä, joka luodaan seuraavasti:
 ```
 python3 -m venv venv
 ```
-<br><br>
+<br>
 
 Virtuaaliympäristö käynnistetään seuraavasti:
 ```
 source venv/bin/activate
 ```
-<br><br>
+<br>
 
 Seuraavalla komennolla poistutaan virtuaaliympäristöstä:
 ```
 deactivate
 ```
-<br><br>
+<br>
 
 Sovellus käyttää Flaskia, joka asennetaan virtuaaliympäristössä seuraavasti:
 ```
 pip install flask
 ```
-<br><br>
+<br>
 
 Sovellus käynnistetään komennolla
 ```
