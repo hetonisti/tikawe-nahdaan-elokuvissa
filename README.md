@@ -1,5 +1,11 @@
 # Nähdään elokuvissa -sivusto
 
+Status 15.11.2026:
+
+-Sivustosta vasta käyttäjän luonti ja kirjautuminen luotu, sekin erittäin vahvasti esimerkin mukaisesti
+-Tietokannan taulut luova create-db.sql kirjoitettu. Tietokannan ei haluta luovan uutta katsomiskertaa (sivuston perustietue), ellei katsomiskertaan ole jo luontihetkellä liitettynä ainakin kaksi osallistujaa. Sitä varten tekoäly ohjeisti luomaan härpäkkeen, jonka vuoksi katsomiskerran luontitransaktiossa pitää luoda myös kahden käyttäjän rivit Seeings -tauluun. En ole vielä testannut tätä härpäkettä, mutta ainakaan Sqlite ei herjaa tauluja luodessa. Taidan tietää, miten härpäkettä voi tehdä siistimmäksi: ehkä Seeingsin pääavain voi olla event_id:n ja user_id:n yhdistelmä. Mutta testataan ensin, ymmärsinkö tekoälyn oikein / toimiiko härpäke tällaisenaan.
+
+
 **Kurssin tietokannat ja web-ohjelmointi kurssityö**
 
 Sovelluksessa käyttäjät pystyvät merkitsemään, milloin ja missä ovat katsoneet elokuvia muiden käyttäjien kanssa. Katsomiskertaan kirjataan aika ja paikka (esim. "Tennispalatsi 3"). Katsomiskertaan merkitään myös keiden käyttäjien kanssa elokuva on nähty. Tämä on pakollinen tieto, eli palveluun kirjataan vain yhdessä muiden käyttäjien kanssa katsottuja elokuvia. Duplikaattitapahtumaa ei voi lisätä, eli tapahtuman täytyy erota muista ainakin elokuvan, ajan, tai paikan suhteen.
