@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>
+            Nähdään elokuvissa!
+        </title>
+    </head>
+    <body>
+        <p>{{ movie }}</p>>
+        <p>{{ location }}</p>>
+        <p>{{ showtime }}</p>>
+        <p>Käyttäjät:</p>
+        {% for k in users %}
+        <p>{{ k }}</p>>
+        {% endfor %}
+        <p>Genret</p>
+        {% for g in genres %}
+        <p>{{ g }}</p>>
+        {% endfor %}
+        </form>
+    </body>
+</html>

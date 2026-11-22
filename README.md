@@ -1,9 +1,12 @@
 # Nähdään elokuvissa -sivusto
 
-Status 15.11.2026:
+**Status 22.11.**
 
--Sivustosta vasta käyttäjän luonti ja kirjautuminen luotu, sekin erittäin vahvasti esimerkin mukaisesti
--Tietokannan taulut luova create-db.sql kirjoitettu. Tietokannan ei haluta luovan uutta katsomiskertaa (sivuston perustietue), ellei katsomiskertaan ole jo luontihetkellä liitettynä ainakin kaksi osallistujaa. Sitä varten tekoäly ohjeisti luomaan härpäkkeen, jonka vuoksi katsomiskerran luontitransaktiossa pitää luoda myös kahden käyttäjän rivit Seeings -tauluun. En ole vielä testannut tätä härpäkettä, mutta ainakaan Sqlite ei herjaa tauluja luodessa. Taidan tietää, miten härpäkettä voi tehdä siistimmäksi: ehkä Seeingsin pääavain voi olla event_id:n ja user_id:n yhdistelmä. Mutta testataan ensin, ymmärsinkö tekoälyn oikein / toimiiko härpäke tällaisenaan.
+Sain tekoälyltä ihan poskettoman hauskan sivun, joka otettu käyttöön layoutissa. Siinä on viilattavaa.
+
+Sovellus ei vielä listaa elokuvia (etusivulla on staattiset "esimerkkikortit"), mutta uusien elokuvien lisäys onnistuu, ja hakee tietokannasta käyttäjien listan (poistettuna kirjautuneella käyttäjällä). Tagin voi valita listasta ja/tai kirjoittaa uuden. Siinä on joku bugi, että tietokantaan tuli tyhjä tagi.
+
+Poistin kaikki oudot härpäkkeet SQL-skeemasta. Palautan sinne tarkastukset myöhemmin. Nyt foreign keyn tarkastus on kommentoitu pois päältä.
 
 
 **Kurssin tietokannat ja web-ohjelmointi kurssityö**
@@ -26,46 +29,46 @@ Käyttäjäsivulla näkee käyttäjästä tilastoja ja näyttökerrat joihin on 
 **Muista:**
 
 Sovelluksen käyttöliittymän ja README.md-tiedoston kieli voi olla suomi, ruotsi tai englanti. Sovelluksen teknisen toteutuksen (koodi, tietokanta, commit-viestit) kielen tulee olla englanti.
-<br><br>
+
 
 **Ohjeet sovelluksen kokeiluun omalla koneella:**
-<br>
+
 
 Sovellus käyttää tietokantana SQLite3:ea. Sen tulee olla asennettuna, tällä tai vastaavalla komennolla:
 ```
 sudo dnf install sqlite3
 ```
-<br>
+
 
 Kun SQLite3 on asennettuna, luodaan tietokanta seuraavalla komennolla:
 ```
 sqlite3 database.db < create-db.sql
 ```
-<br>
+
 
 Ohjelman ajamiseen suositellaan virtuaaliympäristöä, joka luodaan seuraavasti:
 ```
 python3 -m venv venv
 ```
-<br>
+
 
 Virtuaaliympäristö käynnistetään seuraavasti:
 ```
 source venv/bin/activate
 ```
-<br>
+
 
 Seuraavalla komennolla poistutaan virtuaaliympäristöstä:
 ```
 deactivate
 ```
-<br>
+
 
 Sovellus käyttää Flaskia, joka asennetaan virtuaaliympäristössä seuraavasti:
 ```
 pip install flask
 ```
-<br>
+
 
 Sovellus käynnistetään komennolla
 ```

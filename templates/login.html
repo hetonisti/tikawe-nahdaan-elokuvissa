@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}Haku{% endblock %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<p class="info">
+  {{ message }}
+</p>
+{% endfor %}
+
+{% if session.username  %}
+    <p>
+        Olet kirjautunut nimellä {{ session.username }}
+    </p>
+    <p>
+        <a href="/logout">Kirjaudu ulos</a>
+    </p>
+    {% else %}
+    <a href="/signup">Rekisteröidy</a>
+    <form action="/login" method="post">
+        <p>
+            Käyttäjänimi: <br/>
+            <input type="text" name="username" />
+        </p>
+        <p>
+            Salasana: <br/>
+            <input type="password" name="password" />
+        </p>
+            <input type="submit" value="Lähetä" />
+        </form>
+    {% endif %}
+
+{% endblock %}

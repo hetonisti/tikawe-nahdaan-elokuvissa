@@ -7,22 +7,11 @@ CREATE TABLE Users (
 CREATE TABLE Events (
     id INTEGER PRIMARY KEY,
     movie TEXT NOT NULL,
-    place TEXT NOT NULL,
+    location TEXT NOT NULL,
     showtime DATETIME NOT NULL,
     created_on DATETIME NOT NULL,
-    user1_id INTEGER NOT NULL,
-    user2_id INTEGER NOT NULL,
     
-    UNIQUE (movie, place, showtime),
-    CHECK (user1_id <> user2_id),
-
-    FOREIGN KEY (id, user1_id)
-        REFERENCES Seeings (event_id, id)
-        DEFERRABLE INITIALLY DEFERRED,
-    
-    FOREIGN KEY (id, user2_id)
-        REFERENCES Seeings (event_id, id)
-        DEFERRABLE INITIALLY DEFERRED
+    UNIQUE (movie, location, showtime)
 );
 
 CREATE TABLE Can_modify_event (
@@ -36,12 +25,7 @@ CREATE TABLE Seeings (
     event_id INTEGER NOT NULL,
     user_id REFERENCES Users NOT NULL,
     
-    UNIQUE (event_id, id),
-    UNIQUE (event_id, user_id),
-
-    FOREIGN KEY (event_id)
-        REFERENCES Events (id)
-        DEFERRABLE INITIALLY DEFERRED
+    UNIQUE (event_id, user_id)
 );
 
 Create TABLE Tags (

@@ -1,32 +1,144 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
 
-<html>
-<head>
-    <title>
-        Nähdään elokuvissa!
-    </title>
-</head>
-<body>
-    {% if session.username  %}
-    <p>
-        Olet kirjautunut nimellä {{ session.username }}
-    </p>
-    <p>
-        <a href="/logout">Kirjaudu ulos</a>
-    </p>
-    {% else %}
-    <a href="/signup">Sign up</a>
-    <form action="/login" method="post">
-        <p>
-            Käyttäjänimi: <br/>
-            <input type="text" name="username" />
-        </p>
-        <p>
-            Salasana: <br/>
-            <input type="password" name="password" />
-        </p>
-            <input type="submit" value="Lähetä" />
-        </form>
-    {% endif %}
-</body>
-</html>
+{% block title %}Haku{% endblock %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<p class="info">
+  {{ message }}
+</p>
+{% endfor %}
+
+<main id="main" class="container">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <div class="eyebrow">Iso valkokangas. Yhteiset muistot.</div>
+      <h1 id="hero-title">Hyvä elokuva.<br>Vielä parempi<br><em>yhdessä.</em></h1>
+      <p>Jokaisella elokuvakäynnillä on tarinansa. Löydä katsotut elokuvat, tutut nimimerkit ja kommentit, jotka jäävät elämään lopputekstien jälkeen.</p>
+      <div class="hero-note">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+        Elokuvateatterissa koetuille hetkille.
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="art-caption"><span>NÄHDÄÄN ELOKUVISSA</span><span>★ ★ ★</span></div>
+      <div class="ticket">
+        <div class="ticket-main">
+          <div class="ticket-label">YKSI LIPPU · TUHAT TARINAA</div>
+          <div class="ticket-title">Paikkasi on<br>valkokankaan äärellä.</div>
+          <div class="ticket-meta"><span>RIVI 07</span><span>PAIKKA 12</span><span>SEURA: PARAS</span></div>
+        </div>
+        <div class="ticket-stub"><span>NAUTI NÄYTÖKSESTÄ</span><div class="barcode"></div></div>
+      </div>
+      <div class="art-bottom"><span>✦</span> Muisto ei pääty lopputeksteihin.</div>
+    </div>
+  </section>
+
+  <section class="search-panel" id="haku" aria-labelledby="search-title">
+    <div class="section-heading">
+      <h2 id="search-title">Löydä elokuvakäynti</h2>
+      <p>Yksi hakusana tai monta — sinä päätät.</p>
+    </div>
+    <!-- Palvelin käsittelee GET-haun osoitteessa /search.
+         Kaikki kentät ovat vapaaehtoisia. Useat genret lähetetään
+         toistuvina genre-parametreina. Aika on käyttäjän paikallista aikaa. -->
+    <form action="/search" method="get" aria-labelledby="search-title" aria-describedby="search-help">
+      <div class="search-grid">
+        <div class="field field-movie">
+          <label for="movie">Elokuvan nimi</label>
+          <input id="movie" name="movie" type="search" placeholder="Esim. Dyyni" maxlength="200">
+        </div>
+        <div class="field field-location">
+          <label for="location">Sijainti</label>
+          <input id="location" name="location" type="text" placeholder="Kaupunki tai elokuvateatteri" maxlength="200">
+        </div>
+        <div class="field">
+          <label for="showtime-from">Näytösaika alkaen</label>
+          <input id="showtime-from" name="showtime_from" type="datetime-local">
+        </div>
+        <div class="field">
+          <label for="showtime-to">Näytösaika asti</label>
+          <input id="showtime-to" name="showtime_to" type="datetime-local">
+        </div>
+        <div class="field field-user">
+          <label for="users">Käyttäjän nimimerkki</label>
+          <input id="users" name="users" type="text" placeholder="Esim. filmifani" maxlength="200" autocapitalize="none" spellcheck="false">
+        </div>
+        <div class="field comment-field">
+          <label for="comments">Kommenttien sisältö</label>
+          <input id="comments" name="comments" type="search" placeholder="Sana tai lause, joka jäi mieleen" maxlength="500">
+        </div>
+      </div>
+      <div class="search-bottom">
+        <fieldset class="genres">
+          <legend>Genret — valitse yksi tai useampi</legend>
+          <div class="genre-options">
+            <label class="genre-option"><input type="checkbox" name="genre" value="draama"><span>Draama</span></label>
+            <label class="genre-option"><input type="checkbox" name="genre" value="komedia"><span>Komedia</span></label>
+            <label class="genre-option"><input type="checkbox" name="genre" value="toiminta"><span>Toiminta</span></label>
+            <label class="genre-option"><input type="checkbox" name="genre" value="scifi"><span>Scifi</span></label>
+            <label class="genre-option"><input type="checkbox" name="genre" value="kauhu"><span>Kauhu</span></label>
+            <label class="genre-option"><input type="checkbox" name="genre" value="romantiikka"><span>Romantiikka</span></label>
+            <label class="genre-option"><input type="checkbox" name="genre" value="trilleri"><span>Trilleri</span></label>
+            <label class="genre-option"><input type="checkbox" name="genre" value="animaatio"><span>Animaatio</span></label>
+            <label class="genre-option"><input type="checkbox" name="genre" value="dokumentti"><span>Dokumentti</span></label>
+            <label class="genre-option"><input type="checkbox" name="genre" value="fantasia"><span>Fantasia</span></label>
+          </div>
+        </fieldset>
+        <div class="search-actions">
+          <button class="reset-button" type="reset">Tyhjennä</button>
+          <button class="primary-button" type="submit">Hae elokuvakäyntejä
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+          </button>
+        </div>
+      </div>
+      <p class="form-help" id="search-help">Kaikki hakukentät ovat vapaaehtoisia. Voit rajata näytösajan myös pelkällä alku- tai loppuajalla.</p>
+    </form>
+  </section>
+
+  <section class="events" id="tapahtumat" aria-labelledby="events-title">
+    <div class="section-heading events-heading">
+      <div><div class="eyebrow">Valkokankaalta muistoihin</div><h2 id="events-title">Elokuvakäyntejä</h2></div>
+      <p class="sample-label">Tapahtumat</p>
+    </div>
+    #Esimerkkikortit -- korvattava haulla
+    <div class="event-grid">
+      <article class="event-card" aria-labelledby="event-one-title">
+        <div class="poster poster-one" aria-hidden="true"><div class="poster-kicker">Aavikko kutsuu.</div><div class="poster-title">Dyyni:<br>Osa kaksi</div></div>
+        <div class="event-body">
+          <div class="event-genres" aria-label="Genret"><span>Scifi</span><span>Seikkailu</span></div>
+          <h3 id="event-one-title">Dyyni: Osa kaksi</h3>
+          <dl class="event-meta"><div><dt>Sijainti</dt><dd>Tennispalatsi, Helsinki</dd></div><div><dt>Näytös</dt><dd><time datetime="2024-03-02T19:30">2.3.2024 klo 19.30</time></dd></div></dl>
+          <div class="attendees"><div class="avatars" aria-hidden="true"><span class="avatar">F</span><span class="avatar">M</span></div><span>filmifani, maijam</span></div>
+          <blockquote><p>”Juuri tällaisia elokuvia varten on iso valkokangas.”</p><cite>— filmifani</cite></blockquote>
+        </div>
+      </article>
+      <article class="event-card" aria-labelledby="event-two-title">
+        <div class="poster poster-two" aria-hidden="true"><div class="poster-kicker">Yksi hetki muuttaa kaiken.</div><div class="poster-title">Oppenheimer</div></div>
+        <div class="event-body">
+          <div class="event-genres" aria-label="Genret"><span>Draama</span><span>Historia</span></div>
+          <h3 id="event-two-title">Oppenheimer</h3>
+          <dl class="event-meta"><div><dt>Sijainti</dt><dd>Plevna, Tampere</dd></div><div><dt>Näytös</dt><dd><time datetime="2023-07-22T18:00">22.7.2023 klo 18.00</time></dd></div></dl>
+          <div class="attendees"><div class="avatars" aria-hidden="true"><span class="avatar">E</span><span class="avatar">V</span></div><span>ellikatsoo, valkokangas</span></div>
+          <blockquote><p>”Kolme tuntia, ja koko kotimatka täynnä keskustelua.”</p><cite>— ellikatsoo</cite></blockquote>
+        </div>
+      </article>
+      <article class="event-card" aria-labelledby="event-three-title">
+        <div class="poster poster-three" aria-hidden="true"><div class="poster-kicker">Kauneutta tavallisessa.</div><div class="poster-title">Perfect<br>Days</div></div>
+        <div class="event-body">
+          <div class="event-genres" aria-label="Genret"><span>Draama</span></div>
+          <h3 id="event-three-title">Perfect Days</h3>
+          <dl class="event-meta"><div><dt>Sijainti</dt><dd>Kinopalatsi, Turku</dd></div><div><dt>Näytös</dt><dd><time datetime="2024-04-13T17:15">13.4.2024 klo 17.15</time></dd></div></dl>
+          <div class="attendees"><div class="avatars" aria-hidden="true"><span class="avatar">S</span><span class="avatar">M</span></div><span>sunnuntai, maijam</span></div>
+          <blockquote><p>”Pieni elokuva, joka jätti yllättävän suuren jäljen.”</p><cite>— sunnuntai</cite></blockquote>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="about" id="palvelusta" aria-labelledby="about-title">
+    <div><h2 id="about-title">Enemmän kuin katsottujen elokuvien lista.</h2><p>Nähdään elokuvissa kokoaa teatterikäynnit, näytösajat, mukana olleet käyttäjät ja kommentit yhteen. Koska paras osa elokuvaa on joskus keskustelu sen jälkeen.</p></div>
+    <span class="about-icon" aria-hidden="true">✳</span>
+  </section>
+</main>

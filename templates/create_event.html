@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173e38">
+  <meta name="description" content="Nähdään elokuvissa — löydä elokuvateatterikäyntejä, kommentteja ja yhteisiä elokuvaelämyksiä.">
+  <title>Nähdään elokuvissa — jokainen näytös on tarina</title>
+  <link rel="stylesheet" href="../static/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Siirry sisältöön</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Nähdään elokuvissa — etusivu">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 5v14M17 5v14M3 9h4M3 15h4M17 9h4M17 15h4"/><path d="m10 9 5 3-5 3Z" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <span class="brand-name">Nähdään<span>elokuvissa.</span></span>
+      </a>
+      <nav class="nav" aria-label="Päänavigaatio">
+        <a href="#tapahtumat">Elokuvakäynnit</a>
+        <a class="nav-search" href="/new">Lisää elokuva</a>
+        <a class="nav-search" href="#haku">Hae näytöksiä ↗</a>
+        {% if session.username  %}
+        <a href="/profile">Käyttäjä {{ session.username }}</a>
+        <a href="/logout">Kirjaudu ulos</a>
+        {% else %}
+        <a href="/login">Kirjaudu</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  
+    <section class="search-panel" id="haku" aria-labelledby="search-title">
+      <!-- Palvelin käsittelee GET-haun osoitteessa /search.
+           Kaikki kentät ovat vapaaehtoisia. Useat genret lähetetään
+           toistuvina genre-parametreina. Aika on käyttäjän paikallista aikaa. -->
+      <form action="/create/event" method="post" aria-labelledby="search-title" aria-describedby="search-help">
+        <div class="search-grid">
+          <div class="field field-movie">
+            <label for="movie">Elokuvan nimi</label>
+            <input id="movie" name="movie" type="text" placeholder="Esim. Dyyni" maxlength="200">
+          </div>
+          <div class="field field-location">
+            <label for="location">Sijainti</label>
+            <input id="location" name="location" type="text" placeholder="Kaupunki tai elokuvateatteri" maxlength="200">
+          </div>
+          <div class="field">
+            <label for="showtime-from">Näytösaika</label>
+            <input id="showtime-from" name="showtime" type="datetime-local">
+          </div>
+        </div>
+        <div class="search-bottom">
+        <fieldset class="genres">
+            <legend>Käyttäjät — valitse yksi tai useampi</legend>
+            <div class="genre-options">
+              {% for user in users %}
+              <label class="genre-option"><input type="checkbox" name="users" value="{{user[0]}}"><span>{{user[1]}}</span></label>
+              {% endfor %}
+            </div>
+        </fieldset>
+        </div>
+        <div class="search-bottom">
+          <fieldset class="genres">
+            <legend>Tagit</legend>
+            <div class="genre-options">
+            {% if tags %}
+              {% for tag in tags %}
+              <label class="genre-option"><input type="checkbox" name="tags" value="{{ tag[0] }}"><span>{{ tag[1] }}</span></label>
+              {% endfor %}
+            {% endif %}
+              <label><input type="text" name="new-tag"></label>
+            </div>
+          </fieldset>
+          <div class="search-actions">
+            <button class="reset-button" type="reset">Tyhjennä</button>
+            <button class="primary-button" type="submit">Lisää elokuvakäynti
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+            </button>
+          </div>
+        </div>
+        <p class="form-help" id="search-help">Kaikki hakukentät ovat vapaaehtoisia. Voit rajata näytösajan myös pelkällä alku- tai loppuajalla.</p>
+      </form>
+    </section>
+
+    <section class="events" id="tapahtumat" aria-labelledby="events-title">
+      <div class="section-heading events-heading">
+        <div><div class="eyebrow">Valkokankaalta muistoihin</div><h2 id="events-title">Elokuvakäyntejä</h2></div>
+        <p class="sample-label">Esimerkkitapahtumat</p>
+      </div>
+      <!-- Staattinen esimerkkisisältö. Korvaa kortit palvelimen tapahtumilla. -->
+      <div class="event-grid">
+        <article class="event-card" aria-labelledby="event-one-title">
+          <div class="poster poster-one" aria-hidden="true"><div class="poster-kicker">Aavikko kutsuu.</div><div class="poster-title">Dyyni:<br>Osa kaksi</div></div>
+          <div class="event-body">
+            <div class="event-genres" aria-label="Genret"><span>Scifi</span><span>Seikkailu</span></div>
+            <h3 id="event-one-title">Dyyni: Osa kaksi</h3>
+            <dl class="event-meta"><div><dt>Sijainti</dt><dd>Tennispalatsi, Helsinki</dd></div><div><dt>Näytös</dt><dd><time datetime="2024-03-02T19:30">2.3.2024 klo 19.30</time></dd></div></dl>
+            <div class="attendees"><div class="avatars" aria-hidden="true"><span class="avatar">F</span><span class="avatar">M</span></div><span>filmifani, maijam</span></div>
+            <blockquote><p>”Juuri tällaisia elokuvia varten on iso valkokangas.”</p><cite>— filmifani</cite></blockquote>
+          </div>
+        </article>
+        <article class="event-card" aria-labelledby="event-two-title">
+          <div class="poster poster-two" aria-hidden="true"><div class="poster-kicker">Yksi hetki muuttaa kaiken.</div><div class="poster-title">Oppenheimer</div></div>
+          <div class="event-body">
+            <div class="event-genres" aria-label="Genret"><span>Draama</span><span>Historia</span></div>
+            <h3 id="event-two-title">Oppenheimer</h3>
+            <dl class="event-meta"><div><dt>Sijainti</dt><dd>Plevna, Tampere</dd></div><div><dt>Näytös</dt><dd><time datetime="2023-07-22T18:00">22.7.2023 klo 18.00</time></dd></div></dl>
+            <div class="attendees"><div class="avatars" aria-hidden="true"><span class="avatar">E</span><span class="avatar">V</span></div><span>ellikatsoo, valkokangas</span></div>
+            <blockquote><p>”Kolme tuntia, ja koko kotimatka täynnä keskustelua.”</p><cite>— ellikatsoo</cite></blockquote>
+          </div>
+        </article>
+        <article class="event-card" aria-labelledby="event-three-title">
+          <div class="poster poster-three" aria-hidden="true"><div class="poster-kicker">Kauneutta tavallisessa.</div><div class="poster-title">Perfect<br>Days</div></div>
+          <div class="event-body">
+            <div class="event-genres" aria-label="Genret"><span>Draama</span></div>
+            <h3 id="event-three-title">Perfect Days</h3>
+            <dl class="event-meta"><div><dt>Sijainti</dt><dd>Kinopalatsi, Turku</dd></div><div><dt>Näytös</dt><dd><time datetime="2024-04-13T17:15">13.4.2024 klo 17.15</time></dd></div></dl>
+            <div class="attendees"><div class="avatars" aria-hidden="true"><span class="avatar">S</span><span class="avatar">M</span></div><span>sunnuntai, maijam</span></div>
+            <blockquote><p>”Pieni elokuva, joka jätti yllättävän suuren jäljen.”</p><cite>— sunnuntai</cite></blockquote>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="palvelusta" aria-labelledby="about-title">
+      <div><h2 id="about-title">Enemmän kuin katsottujen elokuvien lista.</h2><p>Nähdään elokuvissa kokoaa teatterikäynnit, näytösajat, mukana olleet käyttäjät ja kommentit yhteen. Koska paras osa elokuvaa on joskus keskustelu sen jälkeen.</p></div>
+      <span class="about-icon" aria-hidden="true">✳</span>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner"><p><strong>Nähdään elokuvissa.</strong> Hyviä elokuvia, yhteisiä muistoja.</p><a href="#haku">Takaisin hakuun ↑</a></div>
+  </footer>
+</body>
+</html>
